@@ -1,6 +1,37 @@
 export const myProjects = [
   {
     id: 1,
+    title: "Ai Resume Checker",
+    description:
+      "AI-powered Resume Analyzer with React, React Router, and Puter.js",
+    subDescription: [
+      "Implement seamless auth, upload and store resumes, and match candidates to jobs using smart AI evaluations. Get custom feedback and ATS scores tailored to each listing—all wrapped in a clean, reusable UI.",
+      "React, Tailwind CSS for styling and responsive design.",
+      "React Router for enable navigation between different views or components within a single-page application (SPA) without requiring a full page reload.",
+    ],
+    href: "https://resumecheck-one.vercel.app/",
+    logo: "",
+    image: "/assets/projects/resumecheck.jpg",
+    tags: [
+      {
+        id: 1,
+        name: "React",
+        path: "/assets/logos/react.svg",
+      },
+      {
+        id: 2,
+        name: "React Router",
+        path: "/assets/logos/react-router.svg",
+      },
+      {
+        id: 3,
+        name: "TailwindCSS",
+        path: "/assets/logos/tailwindcss.svg",
+      },
+    ],
+  },
+  {
+    id: 2,
     title: "Store Landing Page",
     description:
       "Kickscrate is a modern, responsive e-commerce landing page. It is designed to showcase premium running shoes with a clean, stylish, and dynamic user interface that emphasizes user engagement and visual appeal. ",
@@ -30,7 +61,7 @@ export const myProjects = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: "Sushi Landing Page",
     description:
       "Ichiman Sushi is a clean and visually inviting landing page for a Japanese restaurant. It blends traditional Japanese aesthetics with modern web design to promote authentic cuisine and engage visitors effectively. ",
@@ -65,7 +96,7 @@ export const myProjects = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     title: "TIKETin App",
     description: "A web application ticketing system for complaints.",
     subDescription: [
@@ -101,7 +132,7 @@ export const myProjects = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     title: "TRAVELYUK Website",
     description:
       "Travel website that provides booking and information about popular destinations",
