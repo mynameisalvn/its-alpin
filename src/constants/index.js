@@ -189,11 +189,10 @@ export const experiences = [
     job: "Internship",
     date: "2022 - (5 Month)",
     contents: [
-      "Developed and maintained multiple web applications for clients across various industries. Worked on both frontend and backend aspects of projects.",
+      "Developed web applications for clients across various industries. Worked on both frontend and backend aspects of projects.",
       "✅ Building responsive user interfaces.",
-      "✅ Implementing backend functionality.",
-      "✅ Database design and optimization",
-      "✅ Collaborating with design and product teams",
+      "✅ Built backend systems using Laravel, integrated with MySQL for efficient data management.",
+      "✅ Implemented authentication, form validation, and CRUD",
     ],
   },
   {
