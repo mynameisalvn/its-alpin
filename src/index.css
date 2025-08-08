@@ -109,7 +109,7 @@ body {
 }
 
 .subtext {
-  @apply text-neutral-300 text-md md:text-base text-pretty;
+  @apply text-neutral-300 text-sm md:text-base text-pretty;
 }
 
 /* Navigation */
