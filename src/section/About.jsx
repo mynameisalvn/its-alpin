@@ -2,8 +2,8 @@ import { useRef } from "react";
 import Card from "../components/Card";
 import { Globe } from "../components/globe";
 import CopyEmailButton from "../components/CopyEmailButton";
-import { Frameworks } from "../components/Frameworks";
 import { motion } from "motion/react";
+import Frameworks from "../components/Frameworks";
 
 const About = () => {
   const grid2Container = useRef();
@@ -19,32 +19,45 @@ const About = () => {
       </motion.h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[18rem] mt-12">
         {/* Grid 1 */}
-        <div className="flex items-end grid-default-color grid-1">
+        <div className="relative flex items-end grid-black-color grid-1 overflow-hidden rounded-xl">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
           >
             <source src="assets/falling-stars.mp4" type="video/mp4" />
           </video>
 
-          <div className="z-10">
-            <p className="text-3xl md:text-5xl font-bold mb-5 text-white">
+          {/* Animated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent animate-gradient" />
+
+          {/* Content with motion */}
+          <motion.div
+            className="z-10 p-6 md:p-8 backdrop-blur-md rounded-lg bg-white/5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-3xl md:text-5xl font-bold mb-4 text-white">
               My Profile
             </p>
-            <p className="subtext">
-              My approach to development focuses on creating clean, efficient,
-              and user-friendly solutions. I enjoy tackling complex problems and
-              turning them into simple, beautiful interfaces.
+            <p className="subtext text-gray-200">
+              Hello, my name is Alpin Rezha and I am a web developer. Beyond
+              writing code, I consider myself a creative thinker, adept problem
+              solver, and enthusiastic self-learner passionate about delving
+              into the endless possibilities of technology. My current focus
+              lies in website development utilizing Laravel, React.js, and
+              Next.js.
             </p>
-          </div>
-          <div className="absolute inset-x-0 pointer-event-none -bottom-4 h-1/2 sm:h-1/3 bg-gradient-to-t from-indigo"></div>
+          </motion.div>
+
+          <div className="absolute inset-x-0 pointer-events-none -bottom-4 h-1/2 sm:h-1/3 bg-gradient-to-t from-black/60" />
         </div>
 
         {/* Grid 2 */}
-        <div className="grid-default-color grid-2">
+        {/* <div className="grid-default-color grid-2">
           <div
             ref={grid2Container}
             className="flex items-center justify-center w-full h-full"
@@ -94,20 +107,20 @@ const About = () => {
               containerRef={grid2Container}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Grid 3 */}
-        <div className="grid-default-color grid-3">
+        {/* <div className="grid-default-color grid-3">
           <div className="items-center">
             <p className="text-5xl font-bold mt-5 md:mt-20 mb-2">
               Based in Indonesia
             </p>
             <p className="subtext">Currently open to work 📈</p>
-          </div>
-          {/* <figure className="absolute left-[30%] top-[10%]">
+          </div> */}
+        {/* <figure className="absolute left-[30%] top-[10%]">
             <Globe />
           </figure> */}
-        </div>
+        {/* </div> */}
 
         {/* Grid 4 */}
         <div className="grid-black-color grid-4">
@@ -131,22 +144,30 @@ const About = () => {
         </div>
 
         {/* Grid 5 */}
-        <div className="grid-black-color grid-5">
-          <div className="z-10 w-[50%] md:w-[80%]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-45"
-            >
-              <source src="assets/stars-rotate.mp4" type="video/mp4" />
-            </video>
-            <p className="sm:text-4xl text-3xl font-semibold text-white my-15 md:my-25 -mx-3 md:mx-14 lg:mx-22 sm:mx-10">
-              TECH STACKS
+        <div className="relative grid-black-color grid-5 overflow-hidden rounded-xl">
+          {/* Background video */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          >
+            <source src="assets/stars-rotate.mp4" type="video/mp4" />
+          </video>
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/30 to-transparent" />
+
+          {/* Title */}
+          <div className="relative z-10 text-center pt-10 pb-6">
+            <p className="sm:text-5xl text-3xl font-semibold text-white drop-shadow-lg">
+              Techs & Skills
             </p>
           </div>
-          <div className="absolute inset-y-0 md:inset-y-9 w-full h-full start-[50%] md:scale-125">
+
+          {/* Tech stack grid */}
+          <div className="relative z-10 w-full px-6 pb-10">
             <Frameworks />
           </div>
         </div>

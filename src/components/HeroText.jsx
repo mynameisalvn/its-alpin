@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 
 const HeroText = () => {
   const words = ["Clean", "Secure", "Modern"];
+  const mobileText = ["Clean", "Secure", "Modern"];
   const variants = {
     hidden: { opacity: 0, x: -50 },
     visible: { opacity: 1, x: 0 },
@@ -14,7 +15,7 @@ const HeroText = () => {
       {/* Desktop View */}
       <div className="hidden md:flex flex-col space-y-6">
         <motion.h1
-          className="text-5xl md:text-7xl font-bold uppercase text-white leading-tight "
+          className="text-5xl md:text-7xl font-bold text-white leading-tight "
           variants={variants}
           initial="hidden"
           animate="visible"
@@ -99,49 +100,29 @@ const HeroText = () => {
       {/* Mobile View */}
       <div className="md:hidden mt-10 flex flex-col space-y-6">
         <motion.p
-          className="text-4xl font-black"
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.5 }}
-        >
-          Hi, I'm Alpin
-        </motion.p>
-
-        <motion.p
-          className="text-4xl font-medium text-neutral-300"
+          className="text-6xl font-black"
           variants={variants}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.6 }}
         >
-          Building
+          Hi, I'm {""}
+          <span className="bg-gradient-to-r text-transparent bg-clip-text from-gray-500 to-white">
+            Alpin
+          </span>
         </motion.p>
 
-        <motion.div
-          className="relative h-[50px] overflow-visible"
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.7 }}
-        >
-          <FlipWords
-            words={words}
-            className="absolute inset-0 font-bold text-white text-[clamp(2rem,5vw,3.5rem)] whitespace-nowrap text-4xl"
-          />
-        </motion.div>
-
         <motion.p
-          className="text-4xl font-medium text-neutral-300"
+          className="text-4xl font-bold text-neutral-100"
           variants={variants}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.8 }}
         >
-          Website Applications
+          a Website Developer
         </motion.p>
 
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-center gap-4 my-30">
           {mySocials.map((social, index) => (
             <motion.a
               key={social.name}
@@ -151,7 +132,7 @@ const HeroText = () => {
               variants={variants}
               initial="hidden"
               animate="visible"
-              transition={{ delay: 0.9 + index * 0.1 }}
+              transition={{ delay: 0.1 + index * 0.1 }}
               whileHover={{ scale: 1.2, rotate: 3 }}
               whileTap={{ scale: 0.95 }}
             >

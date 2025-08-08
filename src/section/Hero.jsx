@@ -18,14 +18,18 @@ const Hero = () => {
           ? {
               backgroundImage: "url('assets/night-2-comp.jpg')",
               backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
-              opacity: 0.8,
+              width: "100%",
+              height: "100%", // let it grow with content
+              minHeight: "100%", // not 100vh
+              opacity: 0.7,
             }
           : {}
       }
     >
-      <HeroText />
       {!isMobile && <ParallaxBackground />}
+      <HeroText />
       {/* <figure
         className="absolute inset-0"
         style={{ width: "100vw", height: "100vh" }}
