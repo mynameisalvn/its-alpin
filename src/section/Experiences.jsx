@@ -2,7 +2,7 @@ import { Timeline } from "../components/Timeline";
 import { experiences } from "../constants";
 const Experiences = () => {
   return (
-    <div className="w-full section-spacing">
+    <div className="w-full section-spacing" id="experience">
       <Timeline data={experiences} />
     </div>
   );

@@ -31,20 +31,38 @@
   --animate-marquee-vertical: marquee-vertical 50s linear infinite;
 
   @keyframes marquee {
-    from {
-      transform: translateX(0);
+    0% {
+      transform: translateX(0%);
     }
-    to {
+    100% {
       transform: translateX(-50%);
     }
   }
 
-  @keyframes marquee-reverse {
-    from {
-      transform: translateX(calc(-100% - var(--gap)));
-    }
-    to {
+  @keyframes marquee-left {
+    0% {
       transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
     }
   }
 
@@ -66,6 +84,18 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.marquee {
+  display: flex;
+  gap: 2.5rem;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-reverse {
+  display: flex;
+  gap: 2.5rem;
+  animation: marquee-reverse 20s linear infinite;
 }
 
 .animate-marquee {
@@ -143,7 +173,7 @@ body {
   @apply row-span-2 md:col-span-2 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
 }
 .grid-5 {
-  @apply row-span-2 md:col-span-8 h-[30rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+  @apply row-span-2 md:col-span-8 h-[40rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
 }
 
 .grid-default-color {
