@@ -81,7 +81,7 @@ const Contact = () => {
       </div>
 
       {/* Contact Form */}
-      <div className="w-full max-w-md p-6 border border-white/10 rounded-2xl bg-primary">
+      <div className="w-full max-w-md p-6 border border-white/10 rounded-2xl bg-primary z-10">
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="mb-5">
             <label htmlFor="name" className="field-label">

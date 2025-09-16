@@ -55,7 +55,7 @@ const ReviewCard = ({ img, name, username, body }) => {
   return (
     <figure
       className={cn(
-        "relative h-full w-40 cursor-pointer overflow-hidden rounded-xl border p-4",
+        "relative h-full w-40 cursor-pointer overflow-hidden rounded-xl border p-4 ",
         // light styles
         "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
         // dark styles
@@ -78,7 +78,7 @@ const ReviewCard = ({ img, name, username, body }) => {
 
 export function Frameworks() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative z-10 flex w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((frameworks) => (
           <ReviewCard key={frameworks.username} {...frameworks} />

@@ -105,7 +105,7 @@ const Navbar = () => {
   const handleLinkClick = () => setIsOpen(false);
 
   return (
-    <div className="fixed inset-x-0 z-20 w-full border-b transition-all duration-500 bg-primary/30 backdrop-blur-lg border-white/10">
+    <div className="fixed inset-x-0 w-full border-b transition-all duration-500 bg-primary/30 backdrop-blur-lg border-white/10 z-70">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}

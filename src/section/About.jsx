@@ -18,7 +18,7 @@ const About = () => {
     },
   ];
   return (
-    <section className="c-space section-spacing" id="about">
+    <section className="relative z-10 c-space section-spacing " id="about">
       {/* Section Header */}
       <div className="text-center">
         <motion.h2

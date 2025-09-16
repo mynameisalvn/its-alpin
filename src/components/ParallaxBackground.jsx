@@ -1,47 +1,33 @@
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 
-function ParallaxBackground() {
-  const { scrollYProgress } = useScroll();
-  const x = useSpring(scrollYProgress, { damping: 50 });
-  const planetsY = useTransform(x, [0, 0.5], ["-10%", "80%"]);
-  const layer2X = useTransform(x, [0, 0.5], ["0%", "-50%"]);
+const ParallaxBackground = () => {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, -200]);
+
+  const [visible, setVisible] = useState(true);
 
   return (
-    <section className="absolute inset-0 bg-black/40">
-      <div className="relative h-screen overflow-y-hidden">
-        {/* Background */}
-        <div
-          className="absolute inset-0 w-full h-screen -z-50"
-          style={{
-            backgroundImage: "url('assets/night-2-comp.jpg')",
-            backgroundPosition: "bottom",
-            backgroundSize: "cover",
-          }}
-        />
-
-        {/* Planet*/}
-        <motion.div
-          className="absolute inset-0 -z-30"
-          style={{
-            backgroundImage: "url('assets/sun.png')",
-            backgroundPosition: "bottom",
-            backgroundSize: "cover",
-            y: planetsY,
-          }}
-        />
-        {/* Layer 2*/}
-        <motion.div
-          className="absolute inset-0 -z-30"
-          style={{
-            backgroundImage: "url('assets/stars.png')",
-            backgroundPosition: "bottom",
-            backgroundSize: "cover",
-            x: layer2X,
-          }}
-        />
-      </div>
-    </section>
+    <motion.div
+      style={{ y }}
+      className={
+        "fixed inset-0 -z-10 flex items-center justify-center pointer-events-none duration-700 opacity-5"
+      }
+    >
+      <h1
+        className="
+          select-none whitespace-nowrap font-extrabold
+          tracking-[1vw] text-[30vw] leading-none
+        "
+        style={{
+          color: "transparent", // make text hollow
+          WebkitTextStroke: "1.5px #ffff", // outline color (blue-400)
+        }}
+      >
+        ALPIN
+      </h1>
+    </motion.div>
   );
-}
+};
 
 export default ParallaxBackground;

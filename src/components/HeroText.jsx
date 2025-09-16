@@ -1,6 +1,5 @@
 import { mySocials } from "../constants";
 import { motion } from "motion/react";
-import { TypewriterEffect } from "../components/TextWriter"; // ✅ import your typewriter
 
 const HeroText = () => {
   const variants = {

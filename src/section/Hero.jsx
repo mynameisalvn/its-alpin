@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 const Hero = () => {
   return (
     <section
-      className="relative flex flex-col md:flex-row items-center justify-between min-h-screen px-6 md:px-20 overflow-hidden"
+      className="relative z-20 flex flex-col md:flex-row items-center justify-between min-h-screen px-6 md:px-20 overflow-hidden"
       id="home"
     >
       {/* Left Side: Text */}
