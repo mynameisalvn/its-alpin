@@ -17,6 +17,7 @@ const Contact = () => {
   const handleChange = (e) => {
     SetFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const showAlertMessage = (type, message) => {
     setAlertType(type);
     setAlertMessage(message);
@@ -25,11 +26,11 @@ const Contact = () => {
       setShowAlert(false);
     }, 5000);
   };
-  const handleSumbit = async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      console.log("Form sumbitted:", formData);
       await emailjs.send(
         "service_gncq3aw",
         "template_8htvobw",
@@ -44,18 +45,17 @@ const Contact = () => {
       );
       setIsLoading(false);
       SetFormData({ name: "", email: "", message: "" });
-      showAlertMessage("success", "Your message has been deliver!");
+      showAlertMessage("success", "Your message has been delivered!");
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
-      showAlertMessage("danger", "Opss, Something went wrong!");
+      console.error(error);
+      showAlertMessage("danger", "Oops, something went wrong!");
     }
   };
-  //   Email Service ID for Email.js (service_gncq3aw)
-  //   template_8htvobw
+
   return (
     <section
-      className="relative flex items-center c-space section-spacing"
+      className="relative flex flex-col items-center justify-center c-space section-spacing"
       id="contact"
     >
       <Particles
@@ -65,17 +65,24 @@ const Contact = () => {
         color={"#ffffff"}
         refresh
       />
+
       {showAlert && <Alert type={alertType} text={alertMessage} />}
-      <div className="flex flex-col items-center justify-center max-w-md p-5 mx-auto border border-white/10 rounded-2xl bg-primary">
-        <div className="flex flex-col items-start w-full gap-5 mb-10">
-          <h2 className="text-heading">Let's Chat</h2>
-          <p className="font-normal text-neutral-400">
-            My inbox is always open, if you have a project to work on together
-            or just to say hello. Feel free to contact me and I will get back to
-            you.
-          </p>
-        </div>
-        <form className="w-full" onSubmit={handleSumbit}>
+
+      {/* Header*/}
+      <div className="mb-12 text-center">
+        <h2 className="text-5xl font-extrabold text-dark">Contact.</h2>
+        <p className="mt-4 text-neutral-500">
+          Feel free to reach out — whether it’s a project idea or just to say
+          hi.
+        </p>
+        <p className="mt-1 text-md from-gray-500 to-white">
+          I’ll get back to you as soon as I can.
+        </p>
+      </div>
+
+      {/* Contact Form */}
+      <div className="w-full max-w-md p-6 border border-white/10 rounded-2xl bg-primary">
+        <form className="w-full" onSubmit={handleSubmit}>
           <div className="mb-5">
             <label htmlFor="name" className="field-label">
               Name
@@ -92,6 +99,7 @@ const Contact = () => {
               required
             />
           </div>
+
           <div className="mb-5">
             <label htmlFor="email" className="field-label">
               Email
@@ -99,7 +107,7 @@ const Contact = () => {
             <input
               id="email"
               name="email"
-              type="text"
+              type="email"
               className="field-input field-input-focus"
               placeholder="example@email.com"
               autoComplete="email"
@@ -108,6 +116,7 @@ const Contact = () => {
               required
             />
           </div>
+
           <div className="mb-5">
             <label htmlFor="message" className="field-label">
               Message
@@ -115,20 +124,19 @@ const Contact = () => {
             <textarea
               id="message"
               name="message"
-              type="text"
-              className="field-input field-input-focus"
-              placeholder="Type something here ...."
-              autoComplete="message"
+              className="field-input field-input-focus h-32 resize-none"
+              placeholder="Type something here..."
               value={formData.message}
               onChange={handleChange}
               required
             />
           </div>
+
           <button
-            type="subnit"
+            type="submit"
             className="w-full px-1 py-3 text-lg text-center rounded-md cursor-pointer bg-radial from-lavender to-royal hover-animation"
           >
-            {!isLoading ? "Send" : "Sending ..."}
+            {!isLoading ? "Send" : "Sending..."}
           </button>
         </form>
       </div>

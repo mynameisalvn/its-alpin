@@ -1,7 +1,7 @@
 export const myProjects = [
   {
     id: 1,
-    title: "Ai Resume Checker",
+    title: "Resume Checker Powered by AI",
     description:
       "AI-powered Resume Analyzer with React, React Router, and Puter.js",
     subDescription: [
@@ -97,7 +97,7 @@ export const myProjects = [
   },
   {
     id: 4,
-    title: "TIKETin App",
+    title: "TIKETin Website",
     description: "A web application ticketing system for complaints.",
     subDescription: [
       "Developed a responsive web application using Vue.js for a seamless user experience.",

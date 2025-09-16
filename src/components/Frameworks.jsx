@@ -1,77 +1,98 @@
-import React from "react";
+import { cn } from "../lib/utils";
+import { Marquee } from "../components/Marquee";
 
 const frameworks = [
-  "assets/logos/react.svg",
-  "assets/logos/nextjs.svg",
-  "assets/logos/typescript.svg",
-  "assets/logos/javascript.svg",
-  "assets/logos/vue.svg",
-  "assets/logos/tailwindcss.svg",
-  "assets/logos/visualstudiocode.svg",
-  "assets/logos/laravel-2.svg",
-  "assets/logos/php.svg",
-  "assets/logos/mysql.svg",
-  "assets/logos/framer.svg",
-  "assets/logos/visualstudiocode.svg",
+  {
+    name: "Next.js",
+    img: "assets/logos/nextjs.svg",
+  },
+  {
+    name: "React",
+    img: "assets/logos/react.svg",
+  },
+  {
+    name: "TypeScript",
+    img: "assets/logos/typescript.svg",
+  },
+  {
+    name: "JavaScript",
+    img: "assets/logos/javascript.svg",
+  },
+  {
+    name: "Vue.js",
+    img: "assets/logos/vue.svg",
+  },
+  {
+    name: "Frammer",
+    img: "assets/logos/framer.svg",
+  },
+  {
+    name: "Tailwind CSS",
+    img: "assets/logos/tailwindcss.svg",
+  },
+  {
+    name: "Visual Studio Code",
+    img: "assets/logos/visualstudiocode.svg",
+  },
+  {
+    name: "Laravel",
+    img: "assets/logos/laravel-2.svg",
+  },
+  {
+    name: "PHP",
+    img: "assets/logos/php.svg",
+  },
+  {
+    name: "MySQL",
+    img: "assets/logos/mysql.svg",
+  },
 ];
 
-export default function Frameworks() {
+const firstRow = frameworks.slice(0, frameworks.length / 2);
+const secondRow = frameworks.slice(frameworks.length / 2);
+
+const ReviewCard = ({ img, name, username, body }) => {
   return (
-    <section className="w-full overflow-hidden py-10">
-      {/* Mobile View → Grid */}
-      <div className="grid grid-cols-3 gap-4 sm:hidden px-4">
-        {frameworks.map((src, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-center w-full h-20 p-2 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md shadow-lg"
-          >
-            <img
-              src={src}
-              alt=""
-              className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-            />
-          </div>
+    <figure
+      className={cn(
+        "relative h-full w-40 cursor-pointer overflow-hidden rounded-xl border p-4",
+        // light styles
+        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+        // dark styles
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+      )}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <img className="rounded-full" width="32" height="32" alt="" src={img} />
+        <div className="flex flex-col">
+          <figcaption className="text-sm font-medium dark:text-white">
+            {name}
+          </figcaption>
+          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+        </div>
+      </div>
+      <blockquote className="mt-2 text-sm">{body}</blockquote>
+    </figure>
+  );
+};
+
+export function Frameworks() {
+  return (
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+      <Marquee pauseOnHover className="[--duration:20s]">
+        {firstRow.map((frameworks) => (
+          <ReviewCard key={frameworks.username} {...frameworks} />
         ))}
-      </div>
-
-      {/* Desktop View → Marquee */}
-      <div className="hidden sm:block">
-        {/* Top Row → scroll left */}
-        <div className="group relative overflow-hidden">
-          <div className="marquee group-hover:[animation-play-state:paused]">
-            {[...frameworks, ...frameworks].map((src, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-24 h-20 md:w-29 md:h-32 p-2 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md shadow-lg"
-              >
-                <img
-                  src={src}
-                  alt=""
-                  className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Row → scroll right */}
-        <div className="group relative overflow-hidden mt-8">
-          <div className="marquee-reverse group-hover:[animation-play-state:paused]">
-            {[...frameworks, ...frameworks].map((src, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-24 h-20 md:w-29 md:h-32 p-2 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md shadow-lg"
-              >
-                <img
-                  src={src}
-                  alt=""
-                  className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+      </Marquee>
+      <Marquee reverse pauseOnHover className="[--duration:20s]">
+        {secondRow.map((frameworks) => (
+          <ReviewCard key={frameworks.username} {...frameworks} />
+        ))}
+      </Marquee>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
+    </div>
   );
 }
+
+export default Frameworks;

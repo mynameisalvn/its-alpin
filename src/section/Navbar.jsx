@@ -2,65 +2,116 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-scroll";
 
-function Navigation({ linkColor }) {
-  const navItems = [
-    { name: "Home", to: "home" },
-    { name: "About", to: "about" },
-    { name: "Project", to: "project" },
-    { name: "Experience", to: "experience" },
-    { name: "Contact", to: "contact" },
-  ];
+/* navItems shared between navbar and observer */
+const navItems = [
+  { name: "Home", to: "home" },
+  { name: "About", to: "about" },
+  { name: "Project", to: "projects" },
+  { name: "Experience", to: "experience" },
+  { name: "Contact", to: "contact" },
+];
 
+function Navigation({ linkColor, activeSection, onLinkClick }) {
   return (
     <ul className="flex flex-col gap-6 sm:flex-row sm:gap-8">
-      {navItems.map((item) => (
-        <li key={item.to} className="relative group">
-          <Link
-            activeClass="active"
-            to={item.to}
-            smooth
-            offset={0}
-            duration={500}
-            className={`cursor-pointer transition-colors duration-300 ${linkColor} hover:text-white`}
-          >
-            {item.name}
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full" />
-          </Link>
-        </li>
-      ))}
+      {navItems.map((item) => {
+        const isActive = activeSection === item.to;
+        return (
+          <li key={item.to} className="relative group">
+            <Link
+              to={item.to}
+              smooth={true}
+              offset={-80} // adjust if your navbar height is different
+              duration={500}
+              onClick={() => onLinkClick && onLinkClick(item.to)}
+              className={`cursor-pointer transition-colors duration-300 ${
+                isActive ? "text-white font-semibold" : linkColor
+              }`}
+            >
+              {item.name}
+              <span
+                className={`absolute left-0 -bottom-1 h-[2px] bg-white transition-all duration-300 ${
+                  isActive ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              />
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHero, setIsHero] = useState(true);
+  const [isTop, setIsTop] = useState(true); // true when at very top
+  const [activeSection, setActiveSection] = useState("home");
 
+  // track top-of-page to toggle transparent / solid navbar
   useEffect(() => {
-    const handleScroll = () => {
-      const hero = document.getElementById("home");
-      if (!hero) return;
-      const heroBottom = hero.getBoundingClientRect().bottom;
-      setIsHero(heroBottom > 0); // true when still inside hero section
+    if (typeof window === "undefined") return;
+
+    const sections = navItems.map((item) => document.getElementById(item.to));
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -50% 0px", // ✅ detects section once top enters mid-viewport
+      threshold: 0,
     };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    // ✅ Fallback: manual scroll detection
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const offset = window.innerHeight / 2; // middle of viewport
+
+      for (let section of sections) {
+        if (!section) continue;
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+
+        if (scrollY + offset >= top && scrollY + offset < bottom) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  // close mobile menu when navigating
+  const handleLinkClick = () => setIsOpen(false);
+
   return (
-    <div
-      className={`fixed inset-x-0 z-20 w-full border-b transition-all duration-500 ${
-        isHero
-          ? "bg-transparent border-transparent"
-          : "bg-primary/30 backdrop-blur-lg border-white/10"
-      }`}
-    >
+    <div className="fixed inset-x-0 z-20 w-full border-b transition-all duration-500 bg-primary/30 backdrop-blur-lg border-white/10">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <a
             href="/"
-            className={`text-xl font-bold bg-gradient-to-r from-gray-500 to-white bg-clip-text text-transparent`}
+            className="text-xl font-bold bg-gradient-to-r from-gray-500 to-white bg-clip-text text-transparent"
           >
             ALPIN
           </a>
@@ -69,8 +120,9 @@ const Navbar = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className={`flex cursor-pointer focus:outline-none sm:hidden relative w-6 h-6 ${
-              isHero ? "text-white" : "text-neutral-400 hover:text-white"
+              isTop ? "text-white" : "text-neutral-400 hover:text-white"
             }`}
+            aria-label="Toggle menu"
           >
             <AnimatePresence mode="wait" initial={false}>
               {isOpen ? (
@@ -102,7 +154,9 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden sm:flex">
             <Navigation
-              linkColor={isHero ? "text-white" : "text-neutral-300"}
+              linkColor={isTop ? "text-white" : "text-neutral-300"}
+              activeSection={activeSection}
+              onLinkClick={handleLinkClick}
             />
           </nav>
         </div>
@@ -112,7 +166,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="sm:hidden bg-primary/50 backdrop-blur-md border-t border-white/10"
+            className="sm:hidden bg-primary/50 backdrop-blur-md border-t border-white/10 z-70 relative"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -120,7 +174,9 @@ const Navbar = () => {
           >
             <div className="px-6 py-4">
               <Navigation
-                linkColor={isHero ? "text-white" : "text-neutral-300"}
+                linkColor={isTop ? "text-white" : "text-neutral-300"}
+                activeSection={activeSection}
+                onLinkClick={handleLinkClick}
               />
             </div>
           </motion.div>
