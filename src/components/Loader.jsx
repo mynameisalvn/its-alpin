@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Loader = () => {
+const Loader = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [isHidden, setIsHidden] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
@@ -8,7 +8,6 @@ const Loader = () => {
   const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
-    // Fake progress simulation
     let current = 0;
     const interval = setInterval(() => {
       current += 2;
@@ -16,18 +15,21 @@ const Loader = () => {
         current = 100;
         clearInterval(interval);
 
-        // Trigger fade out first, then hide
+        // Fade out, then slide away
         setFadeOut(true);
-        setTimeout(() => setIsHidden(true), 1000);
+        setTimeout(() => {
+          setIsHidden(true);
+          if (onFinish) onFinish(); // ✅ tell parent loader is done
+        }, 1000);
       }
       setProgress(current);
     }, 50);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onFinish]);
 
   useEffect(() => {
-    // Typing animation for the title
+    // Typing animation
     let i = 0;
     const typing = setInterval(() => {
       setDisplayText(title.slice(0, i + 1));
@@ -38,7 +40,6 @@ const Loader = () => {
     return () => clearInterval(typing);
   }, [title]);
 
-  // Smooth text color transition: white → black
   const textColor = progress < 50 ? "black" : "white";
   const barColor =
     progress < 10
@@ -51,10 +52,10 @@ const Loader = () => {
         isHidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      {/* Black background */}
+      {/* Background */}
       <div className="absolute inset-0 bg-white" />
 
-      {/* White panel that grows with progress */}
+      {/* Progress fill */}
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="h-full bg-primary transition-all duration-300 ease-out"
@@ -82,10 +83,7 @@ const Loader = () => {
           <div className="h-1 bg-neutral-300 rounded-full overflow-hidden">
             <div
               className="h-1 rounded-full transition-all duration-300"
-              style={{
-                width: `${progress}%`,
-                background: barColor,
-              }}
+              style={{ width: `${progress}%`, background: barColor }}
             />
           </div>
           <p

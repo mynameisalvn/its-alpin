@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Navbar from "./section/Navbar";
 import Hero from "./section/Hero";
 import About from "./section/About";
@@ -7,29 +7,32 @@ import Experiences from "./section/Experiences";
 import Contact from "./section/Contact";
 import Footer from "./section/Footer";
 import ParallaxBackground from "./components/ParallaxBackground";
+import Loader from "./components/Loader";
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className="container mx-auto max-w-7xl relative">
-      {/* Navbar */}
-      <Navbar />
+    <>
+      {loading && <Loader onFinish={() => setLoading(false)} />}
 
-      <Hero />
-      <About />
-      {/* Parallax Background */}
-      <div className="relative z-10">
-        <ParallaxBackground />
-        <Projects />
-        <Experiences />
-      </div>
+      {!loading && (
+        <div className="container mx-auto max-w-7xl relative">
+          {/* Navbar */}
+          <Navbar />
 
-      {/* Sections without background */}
+          <Hero />
+          <About />
 
-      <Contact />
+          <ParallaxBackground />
+          <Projects />
+          <Experiences />
 
-      {/* Footer */}
-      <Footer />
-    </div>
+          <Contact />
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
 

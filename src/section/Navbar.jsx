@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-scroll";
 
-/* navItems shared between navbar and observer */
 const navItems = [
   { name: "Home", to: "home" },
   { name: "About", to: "about" },
@@ -21,7 +20,7 @@ function Navigation({ linkColor, activeSection, onLinkClick }) {
             <Link
               to={item.to}
               smooth={true}
-              offset={-80} // adjust if your navbar height is different
+              offset={-80}
               duration={500}
               onClick={() => onLinkClick && onLinkClick(item.to)}
               className={`cursor-pointer transition-colors duration-300 ${
@@ -44,71 +43,50 @@ function Navigation({ linkColor, activeSection, onLinkClick }) {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isTop, setIsTop] = useState(true); // true when at very top
+  const [isTop, setIsTop] = useState(true);
   const [activeSection, setActiveSection] = useState("home");
 
-  // track top-of-page to toggle transparent / solid navbar
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const sections = navItems.map((item) => document.getElementById(item.to));
 
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px 0px -50% 0px", // ✅ detects section once top enters mid-viewport
-      threshold: 0,
-    };
-
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-
-    sections.forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
-    // ✅ Fallback: manual scroll detection
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const offset = window.innerHeight / 2; // middle of viewport
+      const viewportHeight = window.innerHeight;
+
+      let currentSection = "home";
+      let maxVisibleHeight = 0;
 
       for (let section of sections) {
         if (!section) continue;
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
 
-        if (scrollY + offset >= top && scrollY + offset < bottom) {
-          setActiveSection(section.id);
-          break;
+        const rect = section.getBoundingClientRect();
+        const visibleHeight =
+          Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+
+        if (visibleHeight > maxVisibleHeight) {
+          maxVisibleHeight = visibleHeight;
+          currentSection = section.id;
         }
       }
+
+      setActiveSection(currentSection);
+      setIsTop(scrollY < 50);
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once on load
 
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // close mobile menu when navigating
   const handleLinkClick = () => setIsOpen(false);
 
   return (
     <div className="fixed inset-x-0 w-full border-b transition-all duration-500 bg-primary/30 backdrop-blur-lg border-white/10 z-70">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between py-4">
-          {/* Logo */}
           <a
             href="/"
             className="text-xl font-bold bg-gradient-to-r from-gray-500 to-white bg-clip-text text-transparent"
