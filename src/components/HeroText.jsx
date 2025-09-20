@@ -7,6 +7,14 @@ const HeroText = () => {
     visible: { opacity: 1, x: 0 },
   };
 
+  // Smooth scroll function
+  const handleScrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="z-10 px-6 mt-20 md:mt-40 w-full max-w-6xl text-center md:text-left">
       {/* Desktop View */}
@@ -46,7 +54,7 @@ const HeroText = () => {
               variants={variants}
               initial="hidden"
               animate="visible"
-              transition={{ delay: 0.9 + index * 0.1 }}
+              transition={{ delay: 0.2 + index * 0.1 }}
               whileHover={{ scale: 1.2, rotate: 3 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -58,6 +66,20 @@ const HeroText = () => {
             </motion.a>
           ))}
         </div>
+
+        {/* Contact Me Button */}
+        <motion.button
+          onClick={handleScrollToContact}
+          className="mt-8 px-8 py-3 text-lg bg-gradient-to-r from-gray-700 to-gray-900 text-white font-semibold rounded-2xl shadow-lg hover:scale-105 transition-transform self-start md:self-start lg:self-start"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
+          whileHover={{ scale: 1, y: -3 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Contact Me
+        </motion.button>
       </div>
 
       {/* Mobile View */}
@@ -108,6 +130,20 @@ const HeroText = () => {
             </motion.a>
           ))}
         </div>
+
+        {/* Contact Me Button for Mobile */}
+        <motion.button
+          onClick={handleScrollToContact}
+          className="mx-auto px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-900 text-white font-semibold rounded-2xl shadow-lg hover:scale-105 transition-transform"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Contact Me
+        </motion.button>
       </div>
     </div>
   );

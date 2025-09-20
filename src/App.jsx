@@ -8,6 +8,7 @@ import Contact from "./section/Contact";
 import Footer from "./section/Footer";
 import ParallaxBackground from "./components/ParallaxBackground";
 import Loader from "./components/Loader";
+import ScrollReveal from "./components/ScrollReveal";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -18,17 +19,30 @@ const App = () => {
 
       {!loading && (
         <div className="container mx-auto max-w-7xl relative">
-          {/* Navbar */}
           <Navbar />
 
-          <Hero />
-          <About />
+          <ScrollReveal>
+            <Hero />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <About />
+          </ScrollReveal>
 
           <ParallaxBackground />
-          <Projects />
-          <Experiences />
 
-          <Contact />
+          <ScrollReveal delay={0.2}>
+            <Projects />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.3}>
+            <Experiences />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.4}>
+            <Contact />
+          </ScrollReveal>
+
           <Footer />
         </div>
       )}

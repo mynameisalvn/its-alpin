@@ -78,7 +78,7 @@ const ReviewCard = ({ img, name, username, body }) => {
 
 export function Frameworks() {
   return (
-    <div className="relative z-10 flex w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative z-20 flex w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((frameworks) => (
           <ReviewCard key={frameworks.username} {...frameworks} />

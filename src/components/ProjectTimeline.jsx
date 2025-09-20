@@ -38,7 +38,7 @@ export const TimelineProject = ({ data }) => {
 
   return (
     <div className="section-spacing w-full md:px-10" ref={containerRef}>
-      <div className="mb-60 text-center">
+      <div className="mb-5 text-center">
         <h2 className="text-4xl md:text-6xl font-bold text-dark underline underline-offset-8 decoration-2 decoration-gradient-to-r">
           Works.
         </h2>
@@ -126,8 +126,8 @@ export const TimelineProject = ({ data }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-5 py-2 text-sm md:text-base font-medium rounded-lg shadow-md 
-                      bg-gradient-to-r from-purple-500 to-blue-500 text-white 
-                      hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                      bg-gradient-to-r from-gray-600 to-gray-900 text-white 
+                      hover:from-gray-700 hover:to-gray-900 transition-all duration-300"
                   >
                     View Project
                   </a>
