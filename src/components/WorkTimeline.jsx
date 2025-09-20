@@ -25,7 +25,7 @@ export const TimelineWork = ({ data }) => {
   return (
     <section className="section-spacing w-full md:px-10" ref={containerRef}>
       {/* Section Header */}
-      <div className="my-50 text-center">
+      <div className="my-45 text-center">
         <h2 className="text-4xl md:text-6xl font-bold text-center text-white underline underline-offset-8 decoration-2 decoration-gradient-to-r from-gray-500 to-white">
           Experiences.
         </h2>

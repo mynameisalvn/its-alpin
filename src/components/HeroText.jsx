@@ -74,7 +74,7 @@ const HeroText = () => {
           variants={variants}
           initial="hidden"
           animate="visible"
-          transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
+          transition={{ delay: 0.1 }}
           whileHover={{ scale: 1, y: -3 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -138,8 +138,8 @@ const HeroText = () => {
           variants={variants}
           initial="hidden"
           animate="visible"
-          transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
-          whileHover={{ scale: 1.05, y: -2 }}
+          transition={{ delay: 0.1 }}
+          whileHover={{ scale: 1, y: -3 }}
           whileTap={{ scale: 0.95 }}
         >
           Contact Me

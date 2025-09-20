@@ -9,11 +9,10 @@ const Footer = () => {
         <p>Privacy Policy</p>
       </div>
       <div className="flex gap-3">
-        {mySocials.map((social, index) => (
-          <a href={social.href} key={index}>
-            <img src={social.icon} className="w-5 h-5" alt={social.name} />
-          </a>
-        ))}
+        <blockquote className="text-sm italic font-medium text-neutral-400">
+          "SIC PARVIS MAGNA ~ Greatness from small beginnings. (Sir Francis
+          Drake)"
+        </blockquote>
       </div>
       <p>©️ 2025 Alpin. All rights reserved.</p>
     </section>

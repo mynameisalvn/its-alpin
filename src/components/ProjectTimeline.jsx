@@ -63,10 +63,10 @@ export const TimelineProject = ({ data }) => {
           >
             {/* Sticky Left  */}
             <div className="sticky z-10 flex flex-col md:flex-row items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700" />
+              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black flex items-center justify-center">
+                <div className="h-4 w-4 rounded-full bg-neutral-800 border  border-neutral-700" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-neutral-600 dark:text-neutral-400">
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-neutral-400">
                 {item.title}
               </h3>
             </div>
@@ -74,7 +74,7 @@ export const TimelineProject = ({ data }) => {
             {/* Right Section */}
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
               {/* Mobile Title */}
-              <h3 className="md:hidden block text-2xl mb-4 font-bold text-neutral-600 dark:text-neutral-400">
+              <h3 className="md:hidden block text-2xl mb-4 font-bold text-neutral-400">
                 {item.title}
               </h3>
 
@@ -88,12 +88,12 @@ export const TimelineProject = ({ data }) => {
               )}
 
               {/* Description */}
-              <p className="text-neutral-700 dark:text-neutral-300 text-base md:text-lg mb-3">
+              <p className="text-neutral-300 text-base md:text-lg mb-3">
                 {item.description}
               </p>
 
               {/* Sub Description */}
-              <ul className="list-disc list-inside text-neutral-500 dark:text-neutral-400 mb-4 space-y-2">
+              <ul className="list-disc list-inside text-neutral-400 mb-4 space-y-2">
                 {item.subDescription.map((point, i) => (
                   <li key={i}>{point}</li>
                 ))}
@@ -104,16 +104,14 @@ export const TimelineProject = ({ data }) => {
                 {item.tags.map((tag) => (
                   <div
                     key={tag.id}
-                    className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-sm"
+                    className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-800 text-sm"
                   >
                     <img
                       src={tag.path}
                       alt={tag.name}
                       className="w-5 h-5 object-contain"
                     />
-                    <span className="text-neutral-600 dark:text-neutral-300">
-                      {tag.name}
-                    </span>
+                    <span className="text-neutral-300">{tag.name}</span>
                   </div>
                 ))}
               </div>
